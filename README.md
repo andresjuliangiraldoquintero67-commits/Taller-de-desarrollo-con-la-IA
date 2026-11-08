@@ -1,1 +1,38 @@
-🛒 EcoMarket - Plataforma Web de Comercio SostenibleEste repositorio contiene el desarrollo del Taller Práctico 2: Desarrollo Web con IA, enfocado en la construcción de una plataforma web de comercio sostenible (landing page y panel de administración) utilizando HTML5, CSS3, JavaScript vanilla y metodologías de Prompt Engineering.   📋 Documentación de Prompts y Técnicas de IA AplicadasDurante el desarrollo del proyecto se aplicaron diversas técnicas de ingeniería de prompts para guiar a la inteligencia artificial de manera estructurada, evitando la generación de código erróneo o genérico.1. Fase 1: Landing Page (Priming y Chain of Thought)Técnica Aplicada: Priming (preparación de contexto) y Chain of Thought (razonamiento paso a paso).Prompt Utilizado:Actúa como un desarrollador frontend senior especializado en comercio electrónico, marketplaces y diseño UX/UI. Vas a participar en el desarrollo de EcoMarket, una startup colombiana que conecta productores locales de alimentos orgánicos y productos sostenibles con consumidores. Tu responsabilidad es ayudarme a diseñar y construir una landing page accesible, responsive y visualmente coherente. Antes de comenzar, confirma que comprendes tu rol y el contexto. Luego pregúntame qué información adicional necesitas para realizar el trabajo de la mejor manera posible. No generes código todavía.   Ajustes y Refinamientos: Tras la respuesta de la IA, se especificó la paleta de colores basada en tonos verdes bosque y acentos tierra, asegurando que el diseño reflejara naturalidad y confianza sin saturación visual.   2. Fase 2: Dashboard Administrativo (Role Prompting)Técnica Aplicada: Role Prompting y estructuración visual de componentes.Prompt Utilizado:Eres un diseñador UX/UI con experiencia en dashboards administrativos de comercio electrónico. Diseña la estructura visual de un panel de administración para EcoMarket que incluya un sidebar a la izquierda, área principal con KPIs, diseño responsive con menú hamburguesa y estilo coherente con la landing page. Primero describe la distribución, jerarquía, colores, tipografía e iconografía. No generes código todavía.   Ajustes y Refinamientos: Se ajustó la distribución del menú lateral (sidebar) para que colapse correctamente en dispositivos móviles mediante un botón de menú hamburguesa controlado con JavaScript vanilla.   3. Fase 3: Generación del Dataset (Few-Shot Prompting)Técnica Aplicada: Few-Shot Prompting con restricciones estrictas de negocio.Prompt Utilizado:Actúa como especialista en generación de datos de prueba. Genera 30 objetos adicionales para el catálogo de EcoMarket, respetando exactamente la estructura de los cinco ejemplos que te proporcionaré. Reglas: IDs únicos del 6 al 35, categorías exclusivas de la lista válida (Frutas y verduras, Despensa, Cuidado personal, Hogar sostenible), precios en COP, stock >= 0, ciudades colombianas permitidas, booleanos reales y fechas entre 2026-01-01 y 2026-11-03. Devuelve únicamente un arreglo JSON válido.   Ajustes y Refinamientos: Se revisó que el JSON generado no incluyera comas finales ni bloques de texto Markdown adicionales para garantizar que JSON.parse() lo procesara sin errores.   4. Fase 4 y 5: Validación Programática, CRUD y LocalStorageTécnica Aplicada: Auditoría de código, validación algorítmica y manipulación del DOM.Ajustes Realizados: Se implementó una función de validación en JavaScript (validarProductos) para verificar tipos de datos, unicidad de IDs y rangos de fechas. Asimismo, se integró persistencia con localStorage y renderizado dinámico de tarjetas (cards) con filtros combinados en tiempo real.   🛠️ Tecnologías UtilizadasHTML5 Semántico (sin frameworks)   CSS3 (Flexbox, CSS Grid y Variables CSS)   JavaScript Vanilla (ES6+)   Chart.js (para visualización estadística de categorías)   🚀 Instrucciones de EjecuciónClona este repositorio o descarga la carpeta del proyecto.Abre la carpeta en Visual Studio Code.Inicia el proyecto utilizando la extensión Live Server para permitir la carga correcta del archivo productos.json mediante fetch().  
+Documentación de Ingeniería de Prompts - EcoMarket
+Este documento detalla las estrategias, técnicas y prompts aplicados mediante inteligencia artificial para guiar el diseño, desarrollo, validación y control de la plataforma web de EcoMarket.
+
+1. Diseño y Maquetación de la Landing Page
+Técnica aplicada: Priming (preparación del contexto inicial) y Chain of Thought (razonamiento estructurado paso a paso).
+
+Prompt utilizado:
+
+Actúa como un desarrollador frontend senior especializado en comercio electrónico, marketplaces y diseño UX/UI. Vas a participar en el desarrollo de EcoMarket, una startup que conecta productores locales de alimentos orgánicos y productos sostenibles con consumidores. Tu responsabilidad es ayudarme a diseñar y construir una landing page accesible, responsive y visualmente coherente. Antes de comenzar, confirma que comprendes tu rol y el contexto. Luego pregúntame qué información adicional necesitas para realizar el trabajo de la mejor manera posible. No generes código todavía.
+
+Ajustes y refinamientos: Se estructuró la jerarquía visual priorizando un estilo limpio, natural y cercano (tonos verdes y acentos tierra) enfocado en la conversión y la experiencia de usuario en dispositivos móviles y de escritorio.
+
+2. Estructuración del Panel de Administración (Dashboard)
+Técnica aplicada: Role Prompting (asignación de rol experto en diseño de interfaces y paneles de control).
+
+Prompt utilizado:
+
+Eres un diseñador UX/UI con experiencia en dashboards administrativos de comercio electrónico. Diseña la estructura visual de un panel de administración para EcoMarket que incluya un sidebar a la izquierda con logotipo y navegación, área principal con KPIs y acciones rápidas, diseño responsive con menú hamburguesa y un estilo visual coherente con la landing page. Primero describe la distribución, jerarquía, colores, tipografía e iconografía. No generes código todavía.
+
+Ajustes y refinamientos: Se establecieron las bases visuales para las tarjetas de indicadores clave (KPIs), la tabla de inventario y la barra lateral colapsable mediante JavaScript vanilla.
+
+3. Generación del Dataset de Productos
+Técnica aplicada: Few-Shot Prompting (generación basada en patrones con restricciones estrictas de negocio).
+
+Prompt utilizado:
+
+Actúa como especialista en generación de datos de prueba. Genera 30 objetos adicionales para el catálogo de EcoMarket, respetando exactamente la estructura de los cinco ejemplos que te proporcionaré. Reglas: IDs únicos del 6 al 35, categorías exclusivas de la lista válida (Frutas y verduras, Despensa, Cuidado personal, Hogar sostenible), precios enteros positivos en pesos colombianos, stock mayor o igual a cero, ciudades permitidas, tipos booleanos reales para orgánico y activo, y fechas dentro del rango establecido. Devuelve únicamente un arreglo JSON válido, sin explicaciones ni bloques Markdown.
+
+Ajustes y refinamientos: Se verificó que el resultado cumpliera estrictamente con un formato JSON válido y sin comas finales para evitar errores al momento de ser procesado por la aplicación mediante JSON.parse() y fetch().
+
+4. Validación Programática, Lógica CRUD y Persistencia
+Técnica aplicada: Auditoría de código, validación algorítmica y gestión de estado en el lado del cliente.
+
+Ajustes realizados:
+
+Se implementó una función de validación programática en JavaScript para revisar la integridad de los registros del dataset (tipos de datos, rangos numéricos y unicidad de identificadores).
+
+Se desarrolló la lógica de negocio para las operaciones CRUD (Crear, Leer, Actualizar y Eliminar) conectada de manera dinámica con el almacenamiento local (localStorage) para garantizar la persistencia de los cambios al recargar la página.
