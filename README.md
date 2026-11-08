@@ -36,3 +36,7 @@ Ajustes realizados:
 Se implementó una función de validación programática en JavaScript para revisar la integridad de los registros del dataset (tipos de datos, rangos numéricos y unicidad de identificadores).
 
 Se desarrolló la lógica de negocio para las operaciones CRUD (Crear, Leer, Actualizar y Eliminar) conectada de manera dinámica con el almacenamiento local (localStorage) para garantizar la persistencia de los cambios al recargar la página.
+
+<img width="610" height="612" alt="image" src="https://github.com/user-attachments/assets/eff147f7-51ea-48ba-9d62-bb012f1659c8" />
+<img width="1366" height="623" alt="image" src="https://github.com/user-attachments/assets/e8de2e62-9a6a-484b-9561-999e74bc60e1" />
+
