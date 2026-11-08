@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMarket - Panel Administrativo</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Incluir Chart.js para el gráfico de barras estadístico (Bonus) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <!-- Botón Menú Hamburguesa para móviles -->
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">☰</button>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-icon">🌱</span>
+                <span class="logo-text">EcoMarket</span>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#kpis" class="active">📊 Indicadores (KPIs)</a></li>
+                    <li><a href="#inventario">📦 Catálogo e Inventario</a></li>
+                    <li><a href="#estadisticas">📈 Reportes y Gráficos</a></li>
+                    <li><a href="index.html">🏠 Ir a la Landing Page</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Área Principal -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Panel de Administración</h1>
+                    <p>Bienvenido al sistema de gestión y control de inventario de EcoMarket.</p>
+                </div>
+                <button class="btn btn-primary" onclick="abrirModal()">+ Nuevo Producto</button>
+            </header>
+
+            <!-- Sección KPIs -->
+            <section id="kpis" class="kpi-container">
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-info">
+                        <h3>Productos Registrados</h3>
+                        <span id="kpi-total" class="kpi-value">0</span>
+                        <p class="kpi-desc">Total activos en catálogo</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⚠️</div>
+                    <div class="kpi-info">
+                        <h3>Inventario Bajo</h3>
+                        <span id="kpi-bajo" class="kpi-value">0</span>
+                        <p class="kpi-desc">Requieren reposición</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-info">
+                        <h3>Valor del Inventario</h3>
+                        <span id="kpi-valor" class="kpi-value">$0</span>
+                        <p class="kpi-desc">Valorizado en COP</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Controles de Búsqueda y Filtros Combinados -->
+            <section id="inventario" class="filters-section">
+                <div class="filters-grid">
+                    <input type="text" id="search-input" placeholder="Buscar por nombre o productor..." class="filter-control">
+                    
+                    <select id="filter-categoria" class="filter-control">
+                        <option value="">Todas las categorías</option>
+                        <option value="Frutas y verduras">Frutas y verduras</option>
+                        <option value="Despensa">Despensa</option>
+                        <option value="Cuidado personal">Cuidado personal</option>
+                        <option value="Hogar sostenible">Hogar sostenible</option>
+                    </select>
+
+                    <select id="filter-ciudad" class="filter-control">
+                        <option value="">Todas las ciudades</option>
+                        <option value="Bucaramanga">Bucaramanga</option>
+                        <option value="Floridablanca">Floridablanca</option>
+                        <option value="Girón">Girón</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Tunja">Tunja</option>
+                        <option value="Cúcuta">Cúcuta</option>
+                    </select>
+
+                    <select id="filter-estado" class="filter-control">
+                        <option value="">Todos los estados</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Stock bajo">Stock bajo</option>
+                        <option value="Agotado">Agotado</option>
+                    </select>
+
+                    <button id="clear-filters" class="btn btn-outline btn-sm">Limpiar filtros</button>
+                </div>
+            </section>
+
+            <!-- Grid Dinámico de Productos (Cards) -->
+            <section class="catalog-section">
+                <h2>Inventario de Productos</h2>
+                <div id="products-grid-admin" class="admin-products-grid">
+                    <!-- Se inyecta dinámicamente desde app.js -->
+                </div>
+            </section>
+
+            <!-- Sección Gráfico Estadístico (Bonus Chart.js) -->
+            <section id="estadisticas" class="chart-section">
+                <h2>Distribución por Categorías</h2>
+                <div class="chart-container">
+                    <canvas id="categoriasChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal CRUD para Crear/Editar Producto -->
+    <div id="product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="modal-title">Agregar Nuevo Producto</h3>
+            <form id="product-form">
+                <input type="hidden" id="prod-id">
+                <div class="form-group">
+                    <label for="prod-nombre">Nombre del producto</label>
+                    <input type="text" id="prod-nombre" required minlength="3" maxlength="80">
+                </div>
+                <div class="form-group">
+                    <label for="prod-categoria">Categoría</label>
+                    <select id="prod-categoria" required>
+                        <option value="Frutas y verduras">Frutas y verduras</option>
+                        <option value="Despensa">Despensa</option>
+                        <option value="Cuidado personal">Cuidado personal</option>
+                        <option value="Hogar sostenible">Hogar sostenible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prod-precio">Precio (COP)</label>
+                    <input type="number" id="prod-precio" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="prod-stock">Stock actual</label>
+                    <input type="number" id="prod-stock" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="prod-stock-min">Stock mínimo</label>
+                    <input type="number" id="prod-stock-min" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="prod-productor">Productor</label>
+                    <input type="text" id="prod-productor" required minlength="3" maxlength="80">
+                </div>
+                <div class="form-group">
+                    <label for="prod-ciudad">Ciudad</label>
+                    <select id="prod-ciudad" required>
+                        <option value="Bucaramanga">Bucaramanga</option>
+                        <option value="Floridablanca">Floridablanca</option>
+                        <option value="Girón">Girón</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Tunja">Tunja</option>
+                        <option value="Cúcuta">Cúcuta</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Script integrado para el menú hamburguesa del dashboard
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const sidebar = document.getElementById('sidebar');
+        if (hamburgerBtn && sidebar) {
+            hamburgerBtn.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('active');
+                hamburgerBtn.setAttribute('aria-expanded', isOpen);
+                hamburgerBtn.textContent = isOpen ? '✕' : '☰';
+            });
+        }
+    </script>
+</body>
+</html>
